@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Đảng viên - Chi bộ Sinh viên 6</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header card">
+        <h1>Hệ thống quản lý Đảng viên</h1>
+        <p><strong>Chi bộ Sinh viên 6</strong> — Theo dõi hồ sơ, sinh hoạt và phân quyền truy cập.</p>
+      </header>
+
+      <section class="card" id="auth-card">
+        <div class="table-header auth-header">
+          <h2>Đăng nhập hệ thống</h2>
+          <div id="session-box" hidden>
+            <span id="current-user" class="badge"></span>
+            <button id="logout" class="btn-secondary">Đăng xuất</button>
+          </div>
+        </div>
+
+        <form id="login-form" class="grid auth-grid">
+          <label>
+            Tài khoản
+            <input id="username" type="text" required placeholder="dang_admin" />
+          </label>
+          <label>
+            Mật khẩu
+            <input id="password" type="password" required placeholder="123456" />
+          </label>
+          <div class="auth-actions">
+            <button type="submit" class="btn-primary">Đăng nhập</button>
+          </div>
+        </form>
+
+        <p class="helper" id="auth-message">Vui lòng đăng nhập để sử dụng hệ thống.</p>
+        <p class="helper">
+          Tài khoản demo: <code>dang_admin/123456</code> (Đảng), <code>chiuy_01/123456</code> (Chi ủy),
+          <code>dangvien_01/123456</code> (Đảng viên).
+        </p>
+      </section>
+
+      <section class="card" id="member-card" hidden>
+        <h2>Thêm / cập nhật đảng viên</h2>
+        <form id="member-form">
+          <input type="hidden" id="member-id" />
+          <div class="grid">
+            <label>
+              Họ và tên
+              <input id="full-name" type="text" required placeholder="Nguyễn Văn A" />
+            </label>
+            <label>
+              Ngày sinh
+              <input id="birth-date" type="date" required />
+            </label>
+            <label>
+              Chi bộ
+              <input id="unit" type="text" required value="Chi bộ Sinh viên 6" readonly />
+            </label>
+            <label>
+              Ngày vào Đảng
+              <input id="join-date" type="date" required />
+            </label>
+            <label>
+              Chức vụ
+              <input id="position" type="text" placeholder="Bí thư" />
+            </label>
+            <label>
+              Trạng thái
+              <select id="status" required>
+                <option value="Chính thức">Chính thức</option>
+                <option value="Dự bị">Dự bị</option>
+                <option value="Tạm ngưng sinh hoạt">Tạm ngưng sinh hoạt</option>
+                <option value="Chuyển sinh hoạt">Chuyển sinh hoạt</option>
+              </select>
+            </label>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn-primary">Lưu đảng viên</button>
+            <button type="button" id="cancel-edit" class="btn-secondary" hidden>Hủy sửa</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card" id="table-card" hidden>
+        <div class="table-header">
+          <h2>Danh sách đảng viên</h2>
+          <input id="search" type="search" placeholder="Tìm theo tên, chi bộ, trạng thái..." />
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Họ tên</th>
+                <th>Ngày sinh</th>
+                <th>Chi bộ</th>
+                <th>Ngày vào Đảng</th>
+                <th>Chức vụ</th>
+                <th>Trạng thái</th>
+                <th id="action-header">Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="member-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="row-template">
+      <tr>
+        <td data-key="fullName"></td>
+        <td data-key="birthDate"></td>
+        <td data-key="unit"></td>
+        <td data-key="joinDate"></td>
+        <td data-key="position"></td>
+        <td data-key="status"></td>
+        <td class="row-actions">
+          <button class="inline edit">Sửa</button>
+          <button class="inline danger delete">Xóa</button>
+        </td>
+      </tr>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
